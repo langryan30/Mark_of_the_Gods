@@ -445,8 +445,8 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 1, spread, 0, 1.0f );
+			nextAttackTime = gameLocal.time + (fireRate * 0.2f * owner->PowerUpModifier ( PMOD_FIRERATE ));	//made it shoot faster
+			Attack ( false, 10, 10.0f, 0, 2.0f ); //gave the weapon 3 rockets instead of 1 rocket, doubled the power, made spread 10 instead of 0
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
@@ -539,7 +539,7 @@ stateResult_t rvWeaponRocketLauncher::State_Rocket_Reload ( const stateParms_t& 
 			if ( animNum ) {
 				idAnim* anim;
 				anim = (idAnim*)viewModel->GetAnimator()->GetAnim ( animNum );				
-				anim->SetPlaybackRate ( (float)anim->Length() / (reloadRate * owner->PowerUpModifier ( PMOD_FIRERATE )) );
+				anim->SetPlaybackRate ( (float)anim->Length() / (reloadRate * 0.2f * owner->PowerUpModifier ( PMOD_FIRERATE )) ); //made it always shoot faster, in combo with fire state
 			}
 
 			PlayAnim( ANIMCHANNEL_TORSO, animName, parms.blendFrames );				
