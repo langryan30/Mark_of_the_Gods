@@ -573,7 +573,7 @@ public:
 	idEntity*				ResetFlag					( const char* itemClass, const idDict& customArgs ) const;
 	void					RespawnFlags				( void );
 	void					DropWeapon					( void );
-
+	
 // RAVEN BEGIN
 // abahr:
 	bool					WeaponIsEnabled				( void ) const { return weaponEnabled; }
