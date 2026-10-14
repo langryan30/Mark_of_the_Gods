@@ -627,19 +627,19 @@ public:
 	int statStrength = 5;
 	int statSwiftness = 5;
 	int statWisdom = 5;
-	int statKnowledge = 5;
+	int statSorcery = 5;
 	int getStatVitality();
 	int getStatVigor();
 	int getStatStrength();
 	int getStatSwiftness();
 	int getStatWisdom();
-	int getStatKnowledge();
+	int getStatSorcery();
 	void upgradeStatVitality();
 	void upgradeStatVigor();
 	void upgradeStatStrength();
 	void upgradeStatSwiftness();
 	void upgradeStatWisdom();
-	void upgradeStatKnowledge();
+	void upgradeStatSorcery();
 	int						GetItemCost(const char* itemName);
 // RITUAL END
 	void					PerformImpulse( int impulse );

@@ -8967,7 +8967,7 @@ void idPlayer::Move( void ) {
 	pushVelocity = physicsObj.GetPushedLinearVelocity();
 
 	// set physics variables
-	physicsObj.SetMaxStepHeight( pm_stepsize.GetFloat() );
+	physicsObj.SetMaxStepHeight( pm_stepsize.GetFloat() );   //possible ryan mod swiftness
 	physicsObj.SetMaxJumpHeight( pm_jumpheight.GetFloat() );
 
 	if ( noclip ) {

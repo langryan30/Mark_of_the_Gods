@@ -8753,7 +8753,8 @@ void idPlayer::AdjustSpeed( void ) {
 		bobFrac = 0.0f;
  	} else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) && ( usercmd.upmove >= 0 ) ) {
 		bobFrac = 1.0f;
-		speed = pm_speed.GetFloat();
+		//Ryan mod swiftness
+		speed = pm_speed.GetFloat() * (1 + (0.2 * float(statSwiftness))); //GOT SWIFTNESS WORKING!!
 	} else {
 		speed = pm_walkspeed.GetFloat();
 		bobFrac = 0.0f;
@@ -14119,8 +14120,8 @@ int idPlayer::getStatWisdom() {
 	return statWisdom;
 }
 
-int idPlayer::getStatKnowledge() {
-	return statKnowledge;
+int idPlayer::getStatSorcery() {
+	return statSorcery;
 }
 
 //upgrade methods for stats
@@ -14144,8 +14145,8 @@ void idPlayer::upgradeStatWisdom() {
 	statWisdom += 2;
 }
 
-void idPlayer::upgradeStatKnowledge() {
-	statKnowledge += 2;
+void idPlayer::upgradeStatSorcery() {
+	statSorcery += 2;
 }
 
 

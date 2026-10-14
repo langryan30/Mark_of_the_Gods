@@ -146,7 +146,7 @@ stateResult_t rvWeaponGrenadeLauncher::State_Fire ( const stateParms_t& parms ) 
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			//Ryan mod
-			Attack ( false, 1, spread, 0, 1.0f * owner->getStatSwiftness()); //PROJECTILE POWER MODS DAMAGE
+			Attack ( false, 1, spread, 0, 1.0f * owner->getStatSorcery()); //PROJECTILE POWER MODS DAMAGE
 			PlayAnim ( ANIMCHANNEL_ALL, GetFireAnim(), 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
