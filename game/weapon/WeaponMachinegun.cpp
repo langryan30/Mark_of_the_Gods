@@ -230,7 +230,7 @@ stateResult_t rvWeaponMachinegun::State_Fire ( const stateParms_t& parms ) {
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE )); //was altFireRate
 				//Ryan swiftness mod
 				Attack ( false, 1, spreadZoom, 0, 1.0f * owner->getStatStrength());//this does nothing :(
-				gameLocal.Printf("Swiftness: %i", owner->getStatSwiftness());
+				gameLocal.Printf("Swiftness: %i", owner->getStatStrength());
 				//fireHeld = true;
 			} else {
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));

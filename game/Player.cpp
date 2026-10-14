@@ -2979,7 +2979,7 @@ void idPlayer::SavePersistantInfo( void ) {
 
 	playerInfo.Clear();
 	inventory.GetPersistantData( playerInfo );
-	playerInfo.SetInt( "health", health -20);    //40 wasnt there before, health
+	playerInfo.SetInt( "health", health);    //40 wasnt there before, health
 	playerInfo.SetInt( "current_weapon", currentWeapon );
 }
 
@@ -2998,7 +2998,7 @@ void idPlayer::RestorePersistantInfo( void ) {
 	spawnArgs.Copy( gameLocal.persistentPlayerInfo[entityNumber] );
 
 	inventory.RestoreInventory( this, spawnArgs );
- 	health = spawnArgs.GetInt( "health", "90" ); //100
+ 	health = spawnArgs.GetInt( "health", "100" ); //100
  	if ( !gameLocal.isClient ) {
  		idealWeapon = spawnArgs.GetInt( "current_weapon", "0" );
  	}
