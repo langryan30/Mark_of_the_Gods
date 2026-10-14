@@ -622,19 +622,20 @@ public:
 	int						CanSelectWeapon				( const char* weaponName );
 	//Ryan stats
 	int statVitality = 5;
-	int statEndurance = 5;
+	int statVigor = 5;
+	float tempVigor = 0;
 	int statStrength = 5;
 	int statSwiftness = 5;
 	int statWisdom = 5;
 	int statKnowledge = 5;
 	int getStatVitality();
-	int getStatEndurance();
+	int getStatVigor();
 	int getStatStrength();
 	int getStatSwiftness();
 	int getStatWisdom();
 	int getStatKnowledge();
 	void upgradeStatVitality();
-	void upgradeStatEndurance();
+	void upgradeStatVigor();
 	void upgradeStatStrength();
 	void upgradeStatSwiftness();
 	void upgradeStatWisdom();

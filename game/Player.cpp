@@ -338,7 +338,7 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 	// health/armor
 	maxHealth		= dict.GetInt( "maxhealth", "100" );
 	//Ryan mod vitality
-	maxHealth += (20 * owner->idPlayer::statVitality);
+	maxHealth += (20 * owner->idPlayer::statVitality);  //GOT VITALITY TO WORK!!!!
 	armor			= dict.GetInt( "armor", "50" );
 	maxarmor		= dict.GetInt( "maxarmor", "100" );
 
@@ -3924,7 +3924,9 @@ void idPlayer::UpdateConditions( void ) {
 
 	pfl.run		= 1;
  	pfl.dead	= ( health <= 0 );
+
 }
+
 
 /*
 ==================
@@ -9648,6 +9650,17 @@ void idPlayer::Think( void ) {
 		inBuyZone = false;
 
 	inBuyZonePrev = false;
+
+	//Ryan mod endurance
+	
+	if (health < 100 + (20 * statVitality)) {
+		tempVigor += (statVigor * 0.004f); //GOT VIGOR WORKING!!!
+		if (tempVigor >= 1) {
+			health += 1;
+			tempVigor = 0;
+		}
+	}
+	
 }
 
 /*
@@ -14090,8 +14103,8 @@ int idPlayer::getStatVitality(){
 	return statVitality;
 }
 
-int idPlayer::getStatEndurance(){
-	return statEndurance;
+int idPlayer::getStatVigor(){
+	return statVigor;
 }
 
 int idPlayer::getStatStrength() {
@@ -14115,8 +14128,8 @@ void idPlayer::upgradeStatVitality() {
 	statVitality += 2;
 }
 
-void idPlayer::upgradeStatEndurance() {
-	statEndurance += 2;
+void idPlayer::upgradeStatVigor() {
+	statVigor += 2;
 }
 
 void idPlayer::upgradeStatStrength() {
