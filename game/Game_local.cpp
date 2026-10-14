@@ -7527,6 +7527,7 @@ idEntity* idGameLocal::HitScan(
 // twhitaker: added additionalIgnore parameter
 	idEntity*		additionalIgnore,
 	int				areas[ 2 ]
+	//Ryan possibly add float power?
 	) {
 
 	idVec3		dir;

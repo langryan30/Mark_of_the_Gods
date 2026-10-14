@@ -337,6 +337,8 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 
 	// health/armor
 	maxHealth		= dict.GetInt( "maxhealth", "100" );
+	//Ryan mod vitality
+	maxHealth += (20 * owner->idPlayer::statVitality);
 	armor			= dict.GetInt( "armor", "50" );
 	maxarmor		= dict.GetInt( "maxarmor", "100" );
 
@@ -3394,9 +3396,9 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	
 	temp = _hud->State().GetInt ( "player_health", "-1" );//number was -1
 	temp = 1000;
-	gameLocal.Printf("This is happening");
+	//gameLocal.Printf("This is happening");
 	if ( temp != health ) {
-		gameLocal.Printf("This if statement is happening");
+		//gameLocal.Printf("This if statement is happening");
 		_hud->SetStateInt   ( "player_healthDelta", temp == -1 ? 0 : (temp - health) );
 		_hud->SetStateInt	( "player_health", health < -100 ? -100 : health );
 		_hud->SetStateFloat	( "player_healthpct", idMath::ClampFloat ( 0.0f, 1.0f, (float)health / (float)inventory.maxHealth ) );
@@ -14082,7 +14084,6 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 	
 }
 //Ryan mod
-//statSwiftness = 1000;
 
 //setter methods for stats
 int idPlayer::getStatVitality(){

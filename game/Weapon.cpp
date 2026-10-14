@@ -2592,6 +2592,8 @@ void rvWeapon::Attack( bool altAttack, int num_attacks, float spread, float fuse
 	// The attack is either a hitscan or a launched projectile, do that now.
 	if ( !gameLocal.isClient ) {
 		idDict& dict = altAttack ? attackAltDict : attackDict;
+		gameLocal.Printf("powerup modifyer: %f\n", owner->PowerUpModifier(PMOD_PROJECTILE_DAMAGE));
+		gameLocal.Printf("Pwer: %f\n", power);
 		power *= owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE );
 		if ( altAttack ? wfl.attackAltHitscan : wfl.attackHitscan ) {
 			Hitscan( dict, muzzleOrigin, muzzleAxis, num_attacks, spread, power );
@@ -2608,7 +2610,7 @@ void rvWeapon::Attack( bool altAttack, int num_attacks, float spread, float fuse
 ================
 rvWeapon::LaunchProjectiles
 ================
-*/
+*/ //Ryan found Launch projectiles with power
 void rvWeapon::LaunchProjectiles ( idDict& dict, const idVec3& muzzleOrigin, const idMat3& muzzleAxis, int num_projectiles, float spread, float fuseOffset, float power ) {
 	idProjectile*	proj;
 	idEntity*		ent;

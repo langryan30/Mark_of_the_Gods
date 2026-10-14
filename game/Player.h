@@ -621,12 +621,12 @@ public:
 	bool					CanBuy( void );
 	int						CanSelectWeapon				( const char* weaponName );
 	//Ryan stats
-	int statVitality;
-	int statEndurance;
-	int statStrength;
-	int statSwiftness = 1000;
-	int statWisdom;
-	int statKnowledge;
+	int statVitality = 5;
+	int statEndurance = 5;
+	int statStrength = 5;
+	int statSwiftness = 5;
+	int statWisdom = 5;
+	int statKnowledge = 5;
 	int getStatVitality();
 	int getStatEndurance();
 	int getStatStrength();
