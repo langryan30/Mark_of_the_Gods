@@ -2977,7 +2977,7 @@ void idPlayer::SavePersistantInfo( void ) {
 
 	playerInfo.Clear();
 	inventory.GetPersistantData( playerInfo );
-	playerInfo.SetInt( "health", health );
+	playerInfo.SetInt( "health", health -20);    //40 wasnt there before, health
 	playerInfo.SetInt( "current_weapon", currentWeapon );
 }
 
@@ -2996,7 +2996,7 @@ void idPlayer::RestorePersistantInfo( void ) {
 	spawnArgs.Copy( gameLocal.persistentPlayerInfo[entityNumber] );
 
 	inventory.RestoreInventory( this, spawnArgs );
- 	health = spawnArgs.GetInt( "health", "100" );
+ 	health = spawnArgs.GetInt( "health", "90" ); //100
  	if ( !gameLocal.isClient ) {
  		idealWeapon = spawnArgs.GetInt( "current_weapon", "0" );
  	}
@@ -3391,9 +3391,12 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	int temp;
 	
 	assert ( _hud );
-
-	temp = _hud->State().GetInt ( "player_health", "-1" );
-	if ( temp != health ) {		
+	
+	temp = _hud->State().GetInt ( "player_health", "-1" );//number was -1
+	temp = 1000;
+	gameLocal.Printf("This is happening");
+	if ( temp != health ) {
+		gameLocal.Printf("This if statement is happening");
 		_hud->SetStateInt   ( "player_healthDelta", temp == -1 ? 0 : (temp - health) );
 		_hud->SetStateInt	( "player_health", health < -100 ? -100 : health );
 		_hud->SetStateFloat	( "player_healthpct", idMath::ClampFloat ( 0.0f, 1.0f, (float)health / (float)inventory.maxHealth ) );
@@ -14075,6 +14078,61 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 	}
 
 	return weaponNum;
+
+	
 }
+//Ryan mod
+//statSwiftness = 1000;
+
+//setter methods for stats
+int idPlayer::getStatVitality(){
+	return statVitality;
+}
+
+int idPlayer::getStatEndurance(){
+	return statEndurance;
+}
+
+int idPlayer::getStatStrength() {
+	return statStrength;
+}
+
+int idPlayer::getStatSwiftness() {
+	return statSwiftness;
+}
+
+int idPlayer::getStatWisdom() {
+	return statWisdom;
+}
+
+int idPlayer::getStatKnowledge() {
+	return statKnowledge;
+}
+
+//upgrade methods for stats
+void idPlayer::upgradeStatVitality() {
+	statVitality += 2;
+}
+
+void idPlayer::upgradeStatEndurance() {
+	statEndurance += 2;
+}
+
+void idPlayer::upgradeStatStrength() {
+	statStrength += 2;
+}
+
+void idPlayer::upgradeStatSwiftness() {
+	statSwiftness += 2;
+}
+
+void idPlayer::upgradeStatWisdom() {
+	statWisdom += 2;
+}
+
+void idPlayer::upgradeStatKnowledge() {
+	statKnowledge += 2;
+}
+
 
 // RITUAL END

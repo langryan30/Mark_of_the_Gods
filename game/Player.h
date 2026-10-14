@@ -413,6 +413,8 @@ public:
 	bool					vsMsgState;
 
 	int						lastPickupTime;
+
+	
 //RAVEN BEGIN
 // asalmon: the eneny the player is most likely currently aiming at
 #ifdef _XBOX
@@ -618,6 +620,25 @@ public:
 	void					UpdateTeamPowerups( bool isBuying = false );
 	bool					CanBuy( void );
 	int						CanSelectWeapon				( const char* weaponName );
+	//Ryan stats
+	int statVitality;
+	int statEndurance;
+	int statStrength;
+	int statSwiftness = 1000;
+	int statWisdom;
+	int statKnowledge;
+	int getStatVitality();
+	int getStatEndurance();
+	int getStatStrength();
+	int getStatSwiftness();
+	int getStatWisdom();
+	int getStatKnowledge();
+	void upgradeStatVitality();
+	void upgradeStatEndurance();
+	void upgradeStatStrength();
+	void upgradeStatSwiftness();
+	void upgradeStatWisdom();
+	void upgradeStatKnowledge();
 	int						GetItemCost(const char* itemName);
 // RITUAL END
 	void					PerformImpulse( int impulse );
@@ -1154,7 +1175,9 @@ private:
 	stateResult_t			State_Legs_Land					( const stateParms_t& parms );
 	stateResult_t			State_Legs_Dead					( const stateParms_t& parms );
 	
+
  	CLASS_STATES_PROTOTYPE( idPlayer );
+
 };
 
 ID_INLINE bool idPlayer::IsBeingTalkedTo( void ) {
