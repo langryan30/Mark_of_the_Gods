@@ -227,13 +227,13 @@ stateResult_t rvWeaponMachinegun::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			if ( wsfl.zoom ) {
-				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE )); //was altFireRate
+				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE )) * (1 / float(owner->getStatSwiftness())); //was altFireRate
 				//Ryan swiftness mod
 				Attack ( false, 1, spreadZoom, 0, 1.0f * owner->getStatStrength());//this does nothing :(
-				gameLocal.Printf("Swiftness: %i", owner->getStatStrength());
+				gameLocal.Printf("Swiftness: %i", owner->getStatSwiftness());
 				//fireHeld = true;
 			} else {
-				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE)) * (1 / float(owner->getStatSwiftness()));
 				Attack ( false, 1, spread, 0, 1.0f * owner->getStatSwiftness()); //here too
 			}
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
