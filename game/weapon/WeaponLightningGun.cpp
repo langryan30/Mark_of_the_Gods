@@ -358,7 +358,8 @@ void rvWeaponLightningGun::Attack ( idEntity* ent, const idVec3& dir, float powe
 		statManager->WeaponHit( (idActor*)owner, ent, owner->GetCurrentWeapon() );
 	}
 // RAVEN END
-	ent->Damage( owner, owner, dir, spawnArgs.GetString ( "def_damage" ), power * owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE ), 0 );
+	//Ryan mod lightning gun
+	ent->Damage( owner, owner, dir, spawnArgs.GetString ( "def_damage" ), power * owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE ) * owner->getStatSorcery(), 0); 
 }
 
 /*
@@ -838,7 +839,7 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
 				return SRESULT_STAGE ( STAGE_DONE );
 			}
 			if ( AnimDone( ANIMCHANNEL_ALL, 0 ) ) {
-				PlayCycle( ANIMCHANNEL_ALL, "shoot_loop", 0 );
+				PlayCycle( ANIMCHANNEL_ALL, "shoot_loop", 0 ); // was 0
 				if ( !gameLocal.isMultiplayer
 					&& owner == gameLocal.GetLocalPlayer() ) {
 					owner->playerView.SetShakeParms( MS2SEC(gameLocal.GetTime() + 500), 2.0f );
