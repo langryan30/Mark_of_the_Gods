@@ -576,6 +576,148 @@ void Cmd_CenterView_f( const idCmdArgs &args ) {
 	player->SetViewAngles( ang );
 }
 
+//Ryan command locate definition, stats change
+void Cmd_Locate_f(const idCmdArgs& args) {
+	idPlayer* player;
+	idVec3 origin;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	origin = player->GetEyePosition();
+	gameLocal.Printf("Location: %f, %f, %f", origin.x, origin.y, origin.z);
+}
+
+
+void Cmd_Vitality5_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statVitality = 5;
+	gameLocal.Printf("Vitality set to 5");
+}
+void Cmd_Vitality1_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statVitality = 1;
+	gameLocal.Printf("Vitality set to 1");
+	/*
+	if (player->health > player->maxHealth) {
+		player->health = player->maxHealth;
+	}
+	*/
+}
+
+
+void Cmd_Vigor5_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statVigor = 5;
+	gameLocal.Printf("Vigor set to 5");
+}
+void Cmd_Vigor1_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statVigor = 1;
+	gameLocal.Printf("Vigor set to 1");
+}
+
+
+void Cmd_Strength5_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statStrength = 5;
+	gameLocal.Printf("Strength set to 5");
+}
+void Cmd_Strength1_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statStrength = 1;
+	gameLocal.Printf("Strength set to 1");
+}
+
+
+void Cmd_Swiftness5_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statSwiftness = 5;
+	gameLocal.Printf("Swiftness set to 5");
+}
+void Cmd_Swiftness1_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statSwiftness = 1;
+	gameLocal.Printf("Swiftness set to 1");
+}
+
+
+void Cmd_Wisdom5_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statWisdom = 5;
+	gameLocal.Printf("Wisdom set to 5");
+}
+void Cmd_Wisdom1_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statWisdom = 1;
+	gameLocal.Printf("Wisdom set to 1");
+}
+
+
+void Cmd_Sorcery5_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statSorcery = 5;
+	gameLocal.Printf("Sorcery set to 5");
+}
+void Cmd_Sorcery1_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->statSorcery = 1;
+	gameLocal.Printf("Sorcery set to 1");
+}
+
+
+
+
+
+
 /*
 ==================
 Cmd_God_f
@@ -3068,6 +3210,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "give",					Cmd_Give_f,					CMD_FL_GAME|CMD_FL_CHEAT,	"gives one or more items" );
 	cmdSystem->AddCommand( "centerview",			Cmd_CenterView_f,			CMD_FL_GAME,				"centers the view" );
 	cmdSystem->AddCommand( "god",					Cmd_God_f,					CMD_FL_GAME|CMD_FL_CHEAT,	"enables god mode" );
+	//Ryan mod found god mode to help with commands
 	cmdSystem->AddCommand( "undying",				Cmd_Undying_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"enables undying mode (take damage down to 1 health, but do not die)" );
 	cmdSystem->AddCommand( "notarget",				Cmd_Notarget_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"disables the player as a target" );
 	cmdSystem->AddCommand( "noclip",				Cmd_Noclip_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"disables collision detection for the player" );
@@ -3231,6 +3374,20 @@ void idGameLocal::InitConsoleCommands( void ) {
 // squirrel: Mode-agnostic buymenus
 	cmdSystem->AddCommand( "buyMenu",				Cmd_ToggleBuyMenu_f,		CMD_FL_GAME,				"Toggle buy menu (if in a buy zone and the game type supports it)" );
 	cmdSystem->AddCommand( "buy",					Cmd_BuyItem_f,				CMD_FL_GAME,				"Buy an item (if in a buy zone and the game type supports it)" );
+	//Ryan mod system commands: location, stats, etc.
+	cmdSystem->AddCommand("locate", Cmd_Locate_f, CMD_FL_GAME, "Returns the location of the player");
+	cmdSystem->AddCommand("vitality_5", Cmd_Vitality5_f, CMD_FL_GAME, "Sets player stat Vitality to 5");
+	cmdSystem->AddCommand("vitality_1", Cmd_Vitality1_f, CMD_FL_GAME, "Sets player stat Vitality to 1");
+	cmdSystem->AddCommand("vigor_5", Cmd_Vigor5_f, CMD_FL_GAME, "Sets player stat Vigor to 5");
+	cmdSystem->AddCommand("vigor_1", Cmd_Vigor1_f, CMD_FL_GAME, "Sets player stat Vigor to 1");
+	cmdSystem->AddCommand("strength_5", Cmd_Strength5_f, CMD_FL_GAME, "Sets player stat Strength to 5");
+	cmdSystem->AddCommand("strength_1", Cmd_Strength1_f, CMD_FL_GAME, "Sets player stat Strength to 1");
+	cmdSystem->AddCommand("swiftness_5", Cmd_Swiftness5_f, CMD_FL_GAME, "Sets player stat Swiftness to 5");
+	cmdSystem->AddCommand("swiftness_1", Cmd_Swiftness1_f, CMD_FL_GAME, "Sets player stat Swiftness to 1");
+	cmdSystem->AddCommand("wisdom_5", Cmd_Wisdom5_f, CMD_FL_GAME, "Sets player stat Wisdom to 5");
+	cmdSystem->AddCommand("wisdom_1", Cmd_Wisdom1_f, CMD_FL_GAME, "Sets player stat Wisdom to 1");
+	cmdSystem->AddCommand("sorcery_5", Cmd_Sorcery5_f, CMD_FL_GAME, "Sets player stat Sorcery to 5");
+	cmdSystem->AddCommand("sorcery_1", Cmd_Sorcery1_f, CMD_FL_GAME, "Sets player stat Sorcery to 1");
 // RITUAL END
 
 }

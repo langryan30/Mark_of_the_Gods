@@ -339,6 +339,7 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 	maxHealth		= dict.GetInt( "maxhealth", "100" );
 	//Ryan mod vitality
 	maxHealth += (20 * owner->idPlayer::statVitality);  //GOT VITALITY TO WORK!!!!
+	gameLocal.Printf("This should run constantly");
 	armor			= dict.GetInt( "armor", "50" );
 	maxarmor		= dict.GetInt( "maxarmor", "100" );
 
@@ -14126,23 +14127,23 @@ int idPlayer::getStatSorcery() {
 
 //upgrade methods for stats
 void idPlayer::upgradeStatVitality() {
-	statVitality += 2;
+	statVitality += 1;
 }
 
 void idPlayer::upgradeStatVigor() {
-	statVigor += 2;
+	statVigor += 1;
 }
 
 void idPlayer::upgradeStatStrength() {
-	statStrength += 2;
+	statStrength += 1;
 }
 
 void idPlayer::upgradeStatSwiftness() {
-	statSwiftness += 2;
+	statSwiftness += 1;
 }
 
 void idPlayer::upgradeStatWisdom() {
-	statWisdom += 2;
+	statWisdom += 1;
 }
 
 void idPlayer::upgradeStatSorcery() {
