@@ -340,8 +340,8 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 	//Ryan mod vitality
 	maxHealth += (20 * owner->idPlayer::statVitality);  //GOT VITALITY TO WORK!!!!
 	gameLocal.Printf("This should run constantly");
-	armor			= dict.GetInt( "armor", "50" );
-	maxarmor		= dict.GetInt( "maxarmor", "100" );
+	//armor			= dict.GetInt( "armor", "50" );
+	//maxarmor		= dict.GetInt( "maxarmor", "100" );  //Ryan - Dont want armor in mod
 
 	// ammo
 	for( i = 0; i < MAX_AMMOTYPES; i++ ) {
