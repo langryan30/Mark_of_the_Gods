@@ -445,8 +445,9 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 1, spread, 0, 1.0f );
+			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+			//Ryan mod super sparks
+			Attack ( false, owner->statSorcery, 10.0f, 0, 1.0f * owner->statSorcery);
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
@@ -538,8 +539,9 @@ stateResult_t rvWeaponRocketLauncher::State_Rocket_Reload ( const stateParms_t& 
 			animNum = viewModel->GetAnimator()->GetAnim ( animName );
 			if ( animNum ) {
 				idAnim* anim;
-				anim = (idAnim*)viewModel->GetAnimator()->GetAnim ( animNum );				
-				anim->SetPlaybackRate ( (float)anim->Length() / (reloadRate * owner->PowerUpModifier ( PMOD_FIRERATE )) );
+				anim = (idAnim*)viewModel->GetAnimator()->GetAnim ( animNum );	
+				//Ryan mod super sparks p.2
+				anim->SetPlaybackRate ( (float)anim->Length() / (reloadRate * (2/float(owner->statSorcery)) * owner->PowerUpModifier ( PMOD_FIRERATE )) );
 			}
 
 			PlayAnim( ANIMCHANNEL_TORSO, animName, parms.blendFrames );				
