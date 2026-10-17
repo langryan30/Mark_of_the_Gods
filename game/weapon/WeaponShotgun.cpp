@@ -48,7 +48,9 @@ rvWeaponShotgun::Spawn
 ================
 */
 void rvWeaponShotgun::Spawn( void ) {
-	hitscans   = spawnArgs.GetFloat( "hitscans" );
+	//hitscans   = spawnArgs.GetFloat( "hitscans" );
+	//Ryan mod Axe with strength
+	hitscans = 2 * owner->statStrength;
 	
 	SetState( "Raise", 0 );	
 }
@@ -67,7 +69,8 @@ rvWeaponShotgun::Restore
 ================
 */
 void rvWeaponShotgun::Restore( idRestoreGame *savefile ) {
-	hitscans   = spawnArgs.GetFloat( "hitscans" );
+	//hitscans   = spawnArgs.GetFloat( "hitscans" );
+	hitscans = 2 * owner->statStrength;
 }
 
 /*
@@ -162,9 +165,13 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 		STAGE_WAIT,
 	};	
 	switch ( parms.stage ) {
+		
 		case STAGE_INIT:
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+			//Ryan mod greatAxe time
+			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * (2/float(owner->statSwiftness)));
+			hitscans = 2 * owner->statStrength; //modded in
 			Attack( false, hitscans, spread, 0, 1.0f );
+			gameLocal.Printf("Hitscans: %i\n", hitscans);
 			PlayAnim( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE( STAGE_WAIT );
 	
