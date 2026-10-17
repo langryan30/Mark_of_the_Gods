@@ -28,6 +28,8 @@ protected:
 private:
 
 	int					chargeTime;
+	//added by Ryan
+	float nextAttack;
 	int					chargeDelay;
 	idVec2				chargeGlow;
 	bool				fireForced;
@@ -103,7 +105,8 @@ bool rvWeaponBlaster::UpdateAttack ( void ) {
 
 	// If the player is pressing the fire button and they have enough ammo for a shot
 	// then start the shooting process.
-	if ( wsfl.attack && gameLocal.time >= nextAttackTime ) {
+	//Ryan mod update attack
+	if ( wsfl.attack && gameLocal.time >= nextAttackTime /** 20 * 1/float(owner->statSwiftness)*/) {//will have to figure out later
 		// Save the time which the fire button was pressed
 		if ( fireHeldTime == 0 ) {		
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
@@ -151,6 +154,8 @@ void rvWeaponBlaster::Spawn ( void ) {
 	
 	chargeGlow   = spawnArgs.GetVec2 ( "chargeGlow" );
 	chargeTime   = SEC2MS ( spawnArgs.GetFloat ( "chargeTime" ) );
+	//Ryan mod broadsword speed
+	//chargeTime *= float(2 / owner->statSwiftness);
 	chargeDelay  = SEC2MS ( spawnArgs.GetFloat ( "chargeDelay" ) );
 
 	fireHeldTime		= 0;
@@ -357,6 +362,9 @@ stateResult_t rvWeaponBlaster::State_Charge ( const stateParms_t& parms ) {
 				return SRESULT_WAIT;
 			} 
 			SetState ( "Charged", 4 );
+			//Ryan check chargeTime and fireHeldTime
+			gameLocal.Printf("Fire held time: %f\n", fireHeldTime);
+			gameLocal.Printf("Charge time: %f\n", chargeTime);
 			return SRESULT_DONE;
 	}
 	return SRESULT_ERROR;	
@@ -402,9 +410,10 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 		FIRE_INIT,
 		FIRE_WAIT,
 	};	
+	
 	switch ( parms.stage ) {
 		case FIRE_INIT:	
-
+			//nextAttack = gameLocal.time + 2000;
 			StopSound ( SND_CHANNEL_ITEM, false );
 			viewModel->SetShaderParm ( BLASTER_SPARM_CHARGEGLOW, 0 );
 			//don't fire if we're targeting a gui.
@@ -427,11 +436,12 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
-				Attack ( true, 1, spread, 0, 1.0f );
+				//Ryan mod broadsword
+				Attack ( true, 1, spread, 0, 1.0f * owner->statStrength);
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
 			} else {
-				Attack ( false, 1, spread, 0, 1.0f );
+				Attack ( false, 1, spread, 0, 1.0f * owner->statStrength);
 				PlayEffect ( "fx_normalflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
 			}
@@ -440,8 +450,18 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 			return SRESULT_STAGE(FIRE_WAIT);
 		
 		case FIRE_WAIT:
-			if ( AnimDone ( ANIMCHANNEL_ALL, 4 ) ) {
-				SetState ( "Idle", 4 );
+			
+			if (AnimDone(ANIMCHANNEL_ALL, 4)) {
+				//Ryan change blend frames
+				SetState("Idle", 4);
+				/*
+				if (gameLocal.time < nextAttackTime * 20 * 1/float(owner->statSwiftness)) {
+					return SRESULT_WAIT;
+				}
+				else {
+					return SRESULT_DONE;
+				}
+				*/
 				return SRESULT_DONE;
 			}
 			if ( UpdateFlashlight ( ) || UpdateAttack ( ) ) {
