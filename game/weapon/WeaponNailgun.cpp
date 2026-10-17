@@ -648,7 +648,7 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 				SetState ( "Idle", parms.blendFrames );				
 				return SRESULT_DONE;
 			}
-			if ( DrumSpin ( NAILGUN_DRUMSPEED_FAST, 2 ) ) {
+			if ( DrumSpin (NAILGUN_DRUMSPEED_FAST, 2 ) ) { //NAILGUN_DRUMSPEED_FAST was 1st param = 2
 				PostState ( "Fire", 2 );
 				return SRESULT_DONE;
 			}
@@ -665,13 +665,13 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 			} else {
 				PlayCycle ( ANIMCHANNEL_LEGS, "fire_slow", 4 );
 			}
-
+			//Ryan mod greatsword
 			if ( wsfl.zoom ) {				
-				Attack ( true, 1, spread, 0.0f, 1.0f );
-				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+				Attack ( true, 1, spread, 0.0f, 1.0f * owner->statSwiftness);
+				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 7);
 			} else {
-				Attack ( false, 1, spread, 0.0f, 1.0f );
-				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+				Attack ( false, 1, spread, 0.0f, 1.0f * owner->statSwiftness);
+				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 7);
 			}
 			
 			// Play the exhaust effects
