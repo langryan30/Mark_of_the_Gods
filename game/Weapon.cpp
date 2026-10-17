@@ -653,11 +653,14 @@ void rvWeapon::Spawn ( void ) {
  	muzzleOffset		= weaponDef->dict.GetFloat ( "muzzleOffset", "14" );
 
 	// Ammo
-	clipSize			= spawnArgs.GetInt( "clipSize" );
+	//Ryan mod ammo
+	//clipSize			= spawnArgs.GetInt( "clipSize" );
+	clipSize = 1000;
 	ammoRequired		= spawnArgs.GetInt( "ammoRequired" );
 	lowAmmo				= spawnArgs.GetInt( "lowAmmo" );
 	ammoType			= GetAmmoIndexForName( spawnArgs.GetString( "ammoType" ) );
-	maxAmmo				= owner->inventory.MaxAmmoForAmmoClass ( owner, GetAmmoNameForIndex ( ammoType ) );
+	//maxAmmo				= owner->inventory.MaxAmmoForAmmoClass ( owner, GetAmmoNameForIndex ( ammoType ) );
+	maxAmmo = 10000;
 	
 	if ( ( ammoType < 0 ) || ( ammoType >= MAX_AMMO ) ) {
 		gameLocal.Warning( "Unknown ammotype for class '%s'", this->GetClassname ( ) );
