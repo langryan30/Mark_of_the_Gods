@@ -10236,8 +10236,17 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			methodOfDeath = static_cast<idPlayer*>(inflictor)->GetCurrentWeapon();
 			attacker = inflictor;
 		}
-
-		statManager->Damage( attacker, this, methodOfDeath, damage );
+		//Ryan mod try to make railgun scale with strength
+		
+		/*
+		if (currentWeapon == 7) {
+			statManager->Damage(attacker, this, methodOfDeath, damage * idPlayer::statStrength);
+		}
+		else {
+			statManager->Damage(attacker, this, methodOfDeath, damage);
+		}
+		*/
+		statManager->Damage(attacker, this, methodOfDeath, damage);
 	}
 		
 // RAVEN BEGIN
