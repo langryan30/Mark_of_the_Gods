@@ -2106,6 +2106,14 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( oldButtons );
  	savefile->WriteInt( oldFlags );
 
+	//Ryan save stats
+	savefile->WriteInt(statVitality);
+	savefile->WriteInt(statVigor);
+	savefile->WriteInt(statStrength);
+	savefile->WriteInt(statSwiftness);
+	savefile->WriteInt(statWisdom);
+	savefile->WriteInt(statSorcery);
+
 	savefile->WriteInt( lastHitTime );
  	savefile->WriteInt( 0 );
 	savefile->WriteInt( lastSavingThrowTime );
@@ -2370,6 +2378,14 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	savefile->ReadInt( buttonMask );
  	savefile->ReadInt( oldButtons );
  	savefile->ReadInt( oldFlags );
+
+	//Ryan restore stats
+	savefile->ReadInt(statVitality);
+	savefile->ReadInt(statVigor);
+	savefile->ReadInt(statStrength);
+	savefile->ReadInt(statSwiftness);
+	savefile->ReadInt(statWisdom);
+	savefile->ReadInt(statSorcery);
 
  	usercmd.flags = 0;
  	oldFlags = 0;
