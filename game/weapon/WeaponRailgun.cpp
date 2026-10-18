@@ -153,7 +153,7 @@ stateResult_t rvWeaponRailgun::State_Idle( const stateParms_t& parms ) {
 		case STAGE_WAIT:			
 			if ( wsfl.lowerWeapon ) {
 				StopSound( SND_CHANNEL_BODY2, false );
-				SetState ( "Lower", 4 );
+				SetState ( "Lower", 4 ); //keep in
 				return SRESULT_DONE;
 			}		
 			if ( gameLocal.time > nextAttackTime && wsfl.attack && AmmoInClip ( ) ) {
@@ -162,11 +162,11 @@ stateResult_t rvWeaponRailgun::State_Idle( const stateParms_t& parms ) {
 			}  
 			// Auto reload?
 			if ( AutoReload() && !AmmoInClip ( ) && AmmoAvailable () ) {
-				SetState ( "reload", 2 );
+				SetState ( "reload", 2 ); //Prevents from reloading
 				return SRESULT_DONE;
 			}
 			if ( wsfl.netReload || (wsfl.reload && AmmoInClip() < ClipSize() && AmmoAvailable()>AmmoInClip()) ) {
-				SetState ( "Reload", 4 );
+				SetState ( "Reload", 4 ); //prevents from reloading
 				return SRESULT_DONE;			
 			}
 			return SRESULT_WAIT;
@@ -187,15 +187,16 @@ stateResult_t rvWeaponRailgun::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			//Ryan spear mod
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * (1 /float(2*owner->statSwiftness)));
+			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * (3 /float(2*owner->statSwiftness)));
 			Attack ( false, 1, spread, 0, 1.0f /** owner->statStrength*/);
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
 		case STAGE_WAIT:		
 			if ( ( gameLocal.isMultiplayer && gameLocal.time >= nextAttackTime ) || 
-				 ( !gameLocal.isMultiplayer && ( AnimDone ( ANIMCHANNEL_ALL, 2 ) ) ) ) {
-				SetState ( "Idle", 0 );
+				//Ryan make swiftness work
+				 ( gameLocal.time >= nextAttackTime ) ) { //!gameLocal.isMultiplayer && ( AnimDone ( ANIMCHANNEL_ALL, 2 ) 
+				SetState ( "Idle", 0 ); //taking this out makes it not shoot after 1 shot
 				return SRESULT_DONE;
 			}		
 			return SRESULT_WAIT;
@@ -224,7 +225,7 @@ stateResult_t rvWeaponRailgun::State_Reload ( const stateParms_t& parms ) {
 			}
 						
 			SetStatus ( WP_RELOAD );
-			PlayAnim ( ANIMCHANNEL_ALL, "reload", parms.blendFrames );
+			PlayAnim ( ANIMCHANNEL_ALL, "reload", parms.blendFrames ); //removing seems to do nothing
 			return SRESULT_STAGE ( STAGE_WAIT );
 			
 		case STAGE_WAIT:
@@ -249,7 +250,7 @@ stateResult_t rvWeaponRailgun::State_Reload ( const stateParms_t& parms ) {
 	Event 
 
 ===============================================================================
-*/
+
 
 /*
 ================
