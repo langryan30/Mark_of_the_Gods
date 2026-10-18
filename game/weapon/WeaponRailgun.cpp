@@ -209,6 +209,7 @@ stateResult_t rvWeaponRailgun::State_Fire ( const stateParms_t& parms ) {
 rvWeaponRailgun::State_Reload
 ================
 */
+
 stateResult_t rvWeaponRailgun::State_Reload ( const stateParms_t& parms ) {
 	enum {
 		STAGE_INIT,
