@@ -1088,6 +1088,14 @@ idPlayer::idPlayer() {
 	noclip					= false;
 	godmode					= false;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
+	//Ryan idPlayer stats
+	statVitality = 5;
+	statVigor = 5;
+	tempVigor = 0;
+	statStrength = 5;
+	statSwiftness = 5;
+	statWisdom = 5;
+	statSorcery = 5;
 
 	spawnAnglesSet			= false;
 	spawnAngles				= ang_zero;
