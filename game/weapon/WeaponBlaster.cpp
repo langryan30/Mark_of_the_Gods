@@ -29,7 +29,7 @@ private:
 
 	int					chargeTime;
 	//added by Ryan
-	float nextAttack;
+	//float nextAttack;
 	int					chargeDelay;
 	idVec2				chargeGlow;
 	bool				fireForced;
@@ -436,12 +436,12 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
-				//Ryan mod broadsword
-				Attack ( true, 1, spread, 0, 1.0f * owner->statStrength);
-				PlayEffect ( "fx_chargedflash", barrelJointView, false );
-				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
+				//Ryan mod dull dagger
+				Attack ( false, 1, spread, 0, 1.0f /** owner->statStrength*/); //was true
+				PlayEffect ( "fx_normalflash", barrelJointView, false ); //was fx_chargedflash
+				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames ); //was "chargedfire"
 			} else {
-				Attack ( false, 1, spread, 0, 1.0f * owner->statStrength);
+				Attack ( false, 1, spread, 0, 1.0f /** owner->statStrength*/);
 				PlayEffect ( "fx_normalflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
 			}
