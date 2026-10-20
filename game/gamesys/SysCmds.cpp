@@ -859,6 +859,52 @@ void Cmd_UnequipMageSeal_f(const idCmdArgs& args) {
 	}
 }
 
+void Cmd_EquipMarkOfTheGods_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->equipMax < 2 && !player->motgEquipped) {
+		player->statVitality += player->markOfTheGods;
+		player->statVigor += player->markOfTheGods;
+		player->statStrength += player->markOfTheGods;
+		player->statSwiftness += player->markOfTheGods;
+		player->statSorcery += player->markOfTheGods;
+		player->statWisdom += player->markOfTheGods;
+		player->equipMax++;
+		player->motgEquipped = true;
+		gameLocal.Printf("Equipped the Mark of the Gods\n");
+	}
+	else if (player->msEquipped) {
+		gameLocal.Printf("Mark of the Gods is already equipped\n");
+	}
+	else {
+		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
+	}
+}
+void Cmd_UnequipMarkOfTheGods_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->motgEquipped) {
+		player->statVitality -= player->markOfTheGods;
+		player->statVigor -= player->markOfTheGods;
+		player->statStrength -= player->markOfTheGods;
+		player->statSwiftness -= player->markOfTheGods;
+		player->statSorcery -= player->markOfTheGods;
+		player->statWisdom -= player->markOfTheGods;
+		player->equipMax--;
+		player->motgEquipped = false;
+		gameLocal.Printf("Unequipped the Mark of the Gods\n");
+	}
+	else {
+		gameLocal.Printf("Mark of the Gods is already unequipped\n");
+	}
+}
+
 
 
 
@@ -3541,6 +3587,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("unequip_wm", Cmd_UnequipWarriorMedallion_f, CMD_FL_GAME, "Unequips the Warrior Medallion if its equipped");
 	cmdSystem->AddCommand("equip_ms", Cmd_EquipMageSeal_f, CMD_FL_GAME, "Equips the Mage Seal if enough slots are available");
 	cmdSystem->AddCommand("unequip_ms", Cmd_UnequipMageSeal_f, CMD_FL_GAME, "Unequips the Mage Seal if its equipped");
+	cmdSystem->AddCommand("equip_motg", Cmd_EquipMarkOfTheGods_f, CMD_FL_GAME, "Equips the Mark of the Gods if enough slots are available");
+	cmdSystem->AddCommand("unequip_motg", Cmd_UnequipMarkOfTheGods_f, CMD_FL_GAME, "Unequips the Mark of the Gods if its equipped");
 // RITUAL END
 
 }

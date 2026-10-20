@@ -638,6 +638,8 @@ public:
 	bool wmEquipped;
 	int mageSeal;
 	bool msEquipped;
+	int markOfTheGods;
+	bool motgEquipped;
 	int getStatVitality();
 	int getStatVigor();
 	int getStatStrength();

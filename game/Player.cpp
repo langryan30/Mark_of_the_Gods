@@ -1106,6 +1106,8 @@ idPlayer::idPlayer() {
 	wmEquipped = false;
 	mageSeal = 3;
 	msEquipped = false;
+	markOfTheGods = 5;
+	motgEquipped = false;
 	
 
 	spawnAnglesSet			= false;
