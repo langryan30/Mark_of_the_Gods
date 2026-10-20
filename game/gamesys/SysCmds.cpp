@@ -756,7 +756,7 @@ void Cmd_EquipBunnyHood_f(const idCmdArgs& args) {
 		return;
 	}
 	if (player->equipMax < 2 && !player->bhEquipped) {
-		player->bunnyHood = 1;
+		player->bunnyHood = 2;
 		player->equipMax++;
 		player->bhEquipped = true;
 		gameLocal.Printf("Equipped the Bunny Hood\n");
@@ -798,7 +798,7 @@ void Cmd_EquipWarriorMedallion_f(const idCmdArgs& args) {
 		gameLocal.Printf("Equipped the Warrior Medallion\n");
 	}
 	else if (player->wmEquipped) {
-		gameLocal.Printf("Warrior is already equipped\n");
+		gameLocal.Printf("Warrior Medallion is already equipped\n");
 	}
 	else {
 		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
@@ -818,6 +818,44 @@ void Cmd_UnequipWarriorMedallion_f(const idCmdArgs& args) {
 	}
 	else {
 		gameLocal.Printf("Warrior Medallion is already unequipped\n");
+	}
+}
+
+void Cmd_EquipMageSeal_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->equipMax < 2 && !player->msEquipped) {
+		player->statSorcery += player->mageSeal;
+		player->statWisdom += player->mageSeal;
+		player->equipMax++;
+		player->msEquipped = true;
+		gameLocal.Printf("Equipped the Warrior Medallion\n");
+	}
+	else if (player->msEquipped) {
+		gameLocal.Printf("Mage Seal is already equipped\n");
+	}
+	else {
+		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
+	}
+}
+void Cmd_UnequipMageSeal_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->wmEquipped) {
+		player->statSorcery -= player->mageSeal;
+		player->statWisdom -= player->mageSeal;
+		player->equipMax--;
+		player->msEquipped = false;
+		gameLocal.Printf("Unequipped the Mage Seal\n");
+	}
+	else {
+		gameLocal.Printf("Mage Seal is already unequipped\n");
 	}
 }
 
@@ -3501,6 +3539,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("unequip_bh", Cmd_UnequipBunnyHood_f, CMD_FL_GAME, "Unequips the Bunny Hood if its equipped");
 	cmdSystem->AddCommand("equip_wm", Cmd_EquipWarriorMedallion_f, CMD_FL_GAME, "Equips the Warrior Medallion if enough slots are available");
 	cmdSystem->AddCommand("unequip_wm", Cmd_UnequipWarriorMedallion_f, CMD_FL_GAME, "Unequips the Warrior Medallion if its equipped");
+	cmdSystem->AddCommand("equip_ms", Cmd_EquipMageSeal_f, CMD_FL_GAME, "Equips the Mage Seal if enough slots are available");
+	cmdSystem->AddCommand("unequip_ms", Cmd_UnequipMageSeal_f, CMD_FL_GAME, "Unequips the Mage Seal if its equipped");
 // RITUAL END
 
 }

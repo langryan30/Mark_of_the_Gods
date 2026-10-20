@@ -1104,6 +1104,8 @@ idPlayer::idPlayer() {
 	bhEquipped = false;
 	warriorMedallion = 4;
 	wmEquipped = false;
+	mageSeal = 3;
+	msEquipped = false;
 	
 
 	spawnAnglesSet			= false;

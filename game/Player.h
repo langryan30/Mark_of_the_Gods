@@ -636,6 +636,8 @@ public:
 	bool bhEquipped;
 	int warriorMedallion;
 	bool wmEquipped;
+	int mageSeal;
+	bool msEquipped;
 	int getStatVitality();
 	int getStatVigor();
 	int getStatStrength();
