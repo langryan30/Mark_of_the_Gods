@@ -712,7 +712,7 @@ void Cmd_Sorcery1_f(const idCmdArgs& args) {
 	player->statSorcery = 1;
 	gameLocal.Printf("Sorcery set to 1");
 }
-//Ryan equip commands
+//Ryan equip/unequip commands
 
 void Cmd_EquipRingOfHealth_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -726,7 +726,7 @@ void Cmd_EquipRingOfHealth_f(const idCmdArgs& args) {
 		player->rohEquipped = true;
 		gameLocal.Printf("Equipped the Ring of Health\n");
 	} else if (player->rohEquipped){
-		gameLocal.Printf("Already equipped\n");
+		gameLocal.Printf("Ring of Health is already equipped\n");
 	}
 	else {
 		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
@@ -746,6 +746,42 @@ void Cmd_UnequipRingOfHealth_f(const idCmdArgs& args) {
 	}
 	else {
 		gameLocal.Printf("Ring of Health is already unequipped\n");
+	}
+}
+
+void Cmd_EquipBunnyHood_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->equipMax < 2 && !player->bhEquipped) {
+		player->bunnyHood = 1;
+		player->equipMax++;
+		player->bhEquipped = true;
+		gameLocal.Printf("Equipped the Bunny Hood\n");
+	}
+	else if (player->bhEquipped) {
+		gameLocal.Printf("Bunny Hood is already equipped\n");
+	}
+	else {
+		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
+	}
+}
+void Cmd_UnequipBunnyHood_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->bhEquipped) {
+		player->bunnyHood = 0;
+		player->equipMax--;
+		player->bhEquipped = false;
+		gameLocal.Printf("Unequipped the Bunny Hood\n");
+	}
+	else {
+		gameLocal.Printf("Bunny Hood is already unequipped\n");
 	}
 }
 
@@ -3423,8 +3459,11 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("wisdom_1", Cmd_Wisdom1_f, CMD_FL_GAME, "Sets player stat Wisdom to 1");
 	cmdSystem->AddCommand("sorcery_5", Cmd_Sorcery5_f, CMD_FL_GAME, "Sets player stat Sorcery to 5");
 	cmdSystem->AddCommand("sorcery_1", Cmd_Sorcery1_f, CMD_FL_GAME, "Sets player stat Sorcery to 1");
-	cmdSystem->AddCommand("equip_roh", Cmd_EquipRingOfHealth_f, CMD_FL_GAME, "Equips the ring of health if enough slots are available");
-	cmdSystem->AddCommand("unequip_roh", Cmd_UnequipRingOfHealth_f, CMD_FL_GAME, "Unequips the ring of health if its equipped");
+	//Item equip commands
+	cmdSystem->AddCommand("equip_roh", Cmd_EquipRingOfHealth_f, CMD_FL_GAME, "Equips the Ring of Health if enough slots are available");
+	cmdSystem->AddCommand("unequip_roh", Cmd_UnequipRingOfHealth_f, CMD_FL_GAME, "Unequips the Ring of Health if its equipped");
+	cmdSystem->AddCommand("equip_bh", Cmd_EquipBunnyHood_f, CMD_FL_GAME, "Equips the Bunny Hood if enough slots are available");
+	cmdSystem->AddCommand("unequip_bh", Cmd_UnequipBunnyHood_f, CMD_FL_GAME, "Unequips the Bunny Hood if its equipped");
 // RITUAL END
 
 }

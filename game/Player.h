@@ -632,6 +632,8 @@ public:
 	int equipMax;
 	int ringOfHealth;
 	bool rohEquipped;
+	int bunnyHood;
+	bool bhEquipped;
 	int getStatVitality();
 	int getStatVigor();
 	int getStatStrength();

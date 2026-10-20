@@ -1096,10 +1096,13 @@ idPlayer::idPlayer() {
 	statSwiftness = 5;
 	statWisdom = 5;
 	statSorcery = 5;
-	//item stuff
+	//item stuff. Add to save/restore?
 	equipMax = 0;
 	ringOfHealth = 0;
 	rohEquipped = false;
+	bunnyHood = 0;
+	bhEquipped = false;
+	
 
 	spawnAnglesSet			= false;
 	spawnAngles				= ang_zero;
@@ -8783,8 +8786,8 @@ void idPlayer::AdjustSpeed( void ) {
 		bobFrac = 0.0f;
  	} else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) && ( usercmd.upmove >= 0 ) ) {
 		bobFrac = 1.0f;
-		//Ryan mod swiftness
-		speed = pm_speed.GetFloat() * (1 + (0.2 * float(statSwiftness))); //GOT SWIFTNESS WORKING!!
+		//Ryan mod swiftness and bunnyHood
+		speed = pm_speed.GetFloat() * (1 + (0.2 * float(statSwiftness)) * (1+ bunnyHood)); //GOT SWIFTNESS WORKING!!
 	} else {
 		speed = pm_walkspeed.GetFloat();
 		bobFrac = 0.0f;
