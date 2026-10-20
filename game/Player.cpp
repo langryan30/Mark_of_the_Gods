@@ -337,8 +337,8 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 
 	// health/armor
 	maxHealth		= dict.GetInt( "maxhealth", "100" );
-	//Ryan mod vitality
-	maxHealth += (20 * owner->idPlayer::statVitality);  //GOT VITALITY TO WORK!!!!
+	//Ryan mod vitality, and ring of health item toggle
+	maxHealth += (20 * owner->idPlayer::statVitality * (1 + owner->idPlayer::ringOfHealth));  //GOT VITALITY TO WORK!!!!
 	gameLocal.Printf("This should run constantly");
 	//armor			= dict.GetInt( "armor", "50" );
 	//maxarmor		= dict.GetInt( "maxarmor", "100" );  //Ryan - Dont want armor in mod
@@ -1096,6 +1096,10 @@ idPlayer::idPlayer() {
 	statSwiftness = 5;
 	statWisdom = 5;
 	statSorcery = 5;
+	//item stuff
+	equipMax = 0;
+	ringOfHealth = 0;
+	rohEquipped = false;
 
 	spawnAnglesSet			= false;
 	spawnAngles				= ang_zero;
@@ -9678,9 +9682,8 @@ void idPlayer::Think( void ) {
 
 	inBuyZonePrev = false;
 
-	//Ryan mod endurance
-	
-	if (health < 100 + (20 * statVitality)) {
+	//Ryan mod vigor
+	if (health < 100 + (20 * statVitality * (1 + ringOfHealth))) {
 		tempVigor += (statVigor * 0.004f); //GOT VIGOR WORKING!!!
 		if (tempVigor >= 1) {
 			health += 1;

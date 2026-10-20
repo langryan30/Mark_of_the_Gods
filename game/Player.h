@@ -628,6 +628,10 @@ public:
 	int statSwiftness;
 	int statWisdom;
 	int statSorcery;
+	//item stuff
+	int equipMax;
+	int ringOfHealth;
+	bool rohEquipped;
 	int getStatVitality();
 	int getStatVigor();
 	int getStatStrength();

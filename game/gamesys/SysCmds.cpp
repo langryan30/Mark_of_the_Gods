@@ -712,7 +712,42 @@ void Cmd_Sorcery1_f(const idCmdArgs& args) {
 	player->statSorcery = 1;
 	gameLocal.Printf("Sorcery set to 1");
 }
+//Ryan equip commands
 
+void Cmd_EquipRingOfHealth_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->equipMax < 2 && !player->rohEquipped) {
+		player->ringOfHealth = 29;
+		player->equipMax++;
+		player->rohEquipped = true;
+		gameLocal.Printf("Equipped the Ring of Health\n");
+	} else if (player->rohEquipped){
+		gameLocal.Printf("Already equipped\n");
+	}
+	else {
+		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
+	}
+}
+void Cmd_UnequipRingOfHealth_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->rohEquipped) {
+		player->ringOfHealth = 0;
+		player->equipMax--;
+		player->rohEquipped = false;
+		gameLocal.Printf("Unequipped the Ring of Health\n");
+	}
+	else {
+		gameLocal.Printf("Ring of Health is already unequipped\n");
+	}
+}
 
 
 
@@ -3388,6 +3423,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("wisdom_1", Cmd_Wisdom1_f, CMD_FL_GAME, "Sets player stat Wisdom to 1");
 	cmdSystem->AddCommand("sorcery_5", Cmd_Sorcery5_f, CMD_FL_GAME, "Sets player stat Sorcery to 5");
 	cmdSystem->AddCommand("sorcery_1", Cmd_Sorcery1_f, CMD_FL_GAME, "Sets player stat Sorcery to 1");
+	cmdSystem->AddCommand("equip_roh", Cmd_EquipRingOfHealth_f, CMD_FL_GAME, "Equips the ring of health if enough slots are available");
+	cmdSystem->AddCommand("unequip_roh", Cmd_UnequipRingOfHealth_f, CMD_FL_GAME, "Unequips the ring of health if its equipped");
 // RITUAL END
 
 }
