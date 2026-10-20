@@ -1089,19 +1089,21 @@ idPlayer::idPlayer() {
 	godmode					= false;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
 	//Ryan idPlayer stats
-	statVitality = 5;
-	statVigor = 5;
+	statVitality = 1;
+	statVigor = 1;
 	tempVigor = 0;
-	statStrength = 5;
-	statSwiftness = 5;
-	statWisdom = 5;
-	statSorcery = 5;
+	statStrength = 1;
+	statSwiftness = 1;
+	statWisdom = 1;
+	statSorcery = 1;
 	//item stuff. Add to save/restore?
 	equipMax = 0;
 	ringOfHealth = 0;
 	rohEquipped = false;
 	bunnyHood = 0;
 	bhEquipped = false;
+	warriorMedallion = 4;
+	wmEquipped = false;
 	
 
 	spawnAnglesSet			= false;

@@ -785,6 +785,41 @@ void Cmd_UnequipBunnyHood_f(const idCmdArgs& args) {
 	}
 }
 
+void Cmd_EquipWarriorMedallion_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->equipMax < 2 && !player->wmEquipped) {
+		player->statStrength += player->warriorMedallion;
+		player->equipMax++;
+		player->wmEquipped = true;
+		gameLocal.Printf("Equipped the Warrior Medallion\n");
+	}
+	else if (player->wmEquipped) {
+		gameLocal.Printf("Warrior is already equipped\n");
+	}
+	else {
+		gameLocal.Printf("All item slots are filled, unequip something to free a slot\n");
+	}
+}
+void Cmd_UnequipWarriorMedallion_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->wmEquipped) {
+		player->statStrength -= player->warriorMedallion;
+		player->equipMax--;
+		player->wmEquipped = false;
+		gameLocal.Printf("Unequipped the Warrior Medallion\n");
+	}
+	else {
+		gameLocal.Printf("Warrior Medallion is already unequipped\n");
+	}
+}
 
 
 
@@ -3464,6 +3499,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("unequip_roh", Cmd_UnequipRingOfHealth_f, CMD_FL_GAME, "Unequips the Ring of Health if its equipped");
 	cmdSystem->AddCommand("equip_bh", Cmd_EquipBunnyHood_f, CMD_FL_GAME, "Equips the Bunny Hood if enough slots are available");
 	cmdSystem->AddCommand("unequip_bh", Cmd_UnequipBunnyHood_f, CMD_FL_GAME, "Unequips the Bunny Hood if its equipped");
+	cmdSystem->AddCommand("equip_wm", Cmd_EquipWarriorMedallion_f, CMD_FL_GAME, "Equips the Warrior Medallion if enough slots are available");
+	cmdSystem->AddCommand("unequip_wm", Cmd_UnequipWarriorMedallion_f, CMD_FL_GAME, "Unequips the Warrior Medallion if its equipped");
 // RITUAL END
 
 }
