@@ -876,7 +876,7 @@ void Cmd_EquipMarkOfTheGods_f(const idCmdArgs& args) {
 		player->motgEquipped = true;
 		gameLocal.Printf("Equipped the Mark of the Gods\n");
 	}
-	else if (player->msEquipped) {
+	else if (player->motgEquipped) {
 		gameLocal.Printf("Mark of the Gods is already equipped\n");
 	}
 	else {
