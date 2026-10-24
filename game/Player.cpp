@@ -1108,6 +1108,9 @@ idPlayer::idPlayer() {
 	msEquipped = false;
 	markOfTheGods = 5;
 	motgEquipped = false;
+	//magic stuff
+	flashSpeed = 0;
+	flashEndTime = 0;
 	
 
 	spawnAnglesSet			= false;
@@ -8793,7 +8796,7 @@ void idPlayer::AdjustSpeed( void ) {
  	} else if ( !physicsObj.OnLadder() && ( usercmd.buttons & BUTTON_RUN ) && ( usercmd.forwardmove || usercmd.rightmove ) && ( usercmd.upmove >= 0 ) ) {
 		bobFrac = 1.0f;
 		//Ryan mod swiftness and bunnyHood
-		speed = pm_speed.GetFloat() * (1 + (0.2 * float(statSwiftness)) * (1+ bunnyHood)); //GOT SWIFTNESS WORKING!!
+		speed = pm_speed.GetFloat() * (1 + (0.2 * float(statSwiftness)) * (1+ bunnyHood) * (1 + flashSpeed)); //GOT SWIFTNESS WORKING!!
 	} else {
 		speed = pm_walkspeed.GetFloat();
 		bobFrac = 0.0f;
@@ -9691,13 +9694,21 @@ void idPlayer::Think( void ) {
 
 	inBuyZonePrev = false;
 
-	//Ryan mod vigor
+	//Ryan mod vigor + think function stuff
 	if (health < 100 + (20 * statVitality * (1 + ringOfHealth))) {
 		tempVigor += (statVigor * 0.004f); //GOT VIGOR WORKING!!!
 		if (tempVigor >= 1) {
 			health += 1;
 			tempVigor = 0;
 		}
+	}
+	//Making sure health can never go above threshold (mostly for game testing)
+	if (health > 100 + (20 * statVitality * (1 + ringOfHealth))) {
+		health = 100 + (20 * statVitality * (1 + ringOfHealth));
+	}
+	//Ryan keep track of flash
+	if (gameLocal.time > flashEndTime) {
+		flashSpeed = 0;
 	}
 	
 }

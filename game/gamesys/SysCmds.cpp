@@ -596,7 +596,7 @@ void Cmd_Vitality5_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statVitality = 5;
-	gameLocal.Printf("Vitality set to 5");
+	gameLocal.Printf("Vitality set to 5\n");
 }
 void Cmd_Vitality1_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -605,7 +605,7 @@ void Cmd_Vitality1_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statVitality = 1;
-	gameLocal.Printf("Vitality set to 1");
+	gameLocal.Printf("Vitality set to 1\n");
 	/*
 	if (player->health > player->maxHealth) {
 		player->health = player->maxHealth;
@@ -621,7 +621,7 @@ void Cmd_Vigor5_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statVigor = 5;
-	gameLocal.Printf("Vigor set to 5");
+	gameLocal.Printf("Vigor set to 5\n");
 }
 void Cmd_Vigor1_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -630,7 +630,7 @@ void Cmd_Vigor1_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statVigor = 1;
-	gameLocal.Printf("Vigor set to 1");
+	gameLocal.Printf("Vigor set to 1\n");
 }
 
 
@@ -641,7 +641,7 @@ void Cmd_Strength5_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statStrength = 5;
-	gameLocal.Printf("Strength set to 5");
+	gameLocal.Printf("Strength set to 5\n");
 }
 void Cmd_Strength1_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -650,7 +650,7 @@ void Cmd_Strength1_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statStrength = 1;
-	gameLocal.Printf("Strength set to 1");
+	gameLocal.Printf("Strength set to 1\n");
 }
 
 
@@ -661,7 +661,7 @@ void Cmd_Swiftness5_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statSwiftness = 5;
-	gameLocal.Printf("Swiftness set to 5");
+	gameLocal.Printf("Swiftness set to 5\n");
 }
 void Cmd_Swiftness1_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -670,7 +670,7 @@ void Cmd_Swiftness1_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statSwiftness = 1;
-	gameLocal.Printf("Swiftness set to 1");
+	gameLocal.Printf("Swiftness set to 1\n");
 }
 
 
@@ -681,7 +681,7 @@ void Cmd_Wisdom5_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statWisdom = 5;
-	gameLocal.Printf("Wisdom set to 5");
+	gameLocal.Printf("Wisdom set to 5\n");
 }
 void Cmd_Wisdom1_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -690,7 +690,7 @@ void Cmd_Wisdom1_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statWisdom = 1;
-	gameLocal.Printf("Wisdom set to 1");
+	gameLocal.Printf("Wisdom set to 1\n");
 }
 
 
@@ -701,7 +701,7 @@ void Cmd_Sorcery5_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statSorcery = 5;
-	gameLocal.Printf("Sorcery set to 5");
+	gameLocal.Printf("Sorcery set to 5\n");
 }
 void Cmd_Sorcery1_f(const idCmdArgs& args) {
 	idPlayer* player;
@@ -710,7 +710,7 @@ void Cmd_Sorcery1_f(const idCmdArgs& args) {
 		return;
 	}
 	player->statSorcery = 1;
-	gameLocal.Printf("Sorcery set to 1");
+	gameLocal.Printf("Sorcery set to 1\n");
 }
 //Ryan equip/unequip commands
 
@@ -922,6 +922,16 @@ void Cmd_SpellHeal_f(const idCmdArgs& args) {
 	gameLocal.Printf("Heal spell healed with power %i\n", (20 * player->statWisdom));
 }
 
+void Cmd_SpellFlash_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->flashEndTime = gameLocal.time + (5000 * player->statWisdom);
+	player->flashSpeed = 10;
+	gameLocal.Printf("Cast flash spell that will last for %i seconds\n", (5 * player->statWisdom));
+}
 
 /*
 ==================
@@ -3606,6 +3616,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("unequip_motg", Cmd_UnequipMarkOfTheGods_f, CMD_FL_GAME, "Unequips the Mark of the Gods if its equipped");
 	//Spell commands
 	cmdSystem->AddCommand("cast_heal", Cmd_SpellHeal_f, CMD_FL_GAME, "Casts the heal spell to heal the player");
+	cmdSystem->AddCommand("cast_flash", Cmd_SpellFlash_f, CMD_FL_GAME, "Casts the flash spell to make the player move faster");
 // RITUAL END
 
 }

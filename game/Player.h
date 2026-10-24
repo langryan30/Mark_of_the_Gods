@@ -652,6 +652,9 @@ public:
 	void upgradeStatSwiftness();
 	void upgradeStatWisdom();
 	void upgradeStatSorcery();
+	//magic stuff
+	int flashSpeed;
+	int flashEndTime;
 	int						GetItemCost(const char* itemName);
 // RITUAL END
 	void					PerformImpulse( int impulse );
