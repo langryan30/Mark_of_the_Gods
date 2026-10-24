@@ -1111,6 +1111,8 @@ idPlayer::idPlayer() {
 	//magic stuff
 	flashSpeed = 0;
 	flashEndTime = 0;
+	morrowindJump = 0;
+	morrowindEndTime = 0;
 	
 
 	spawnAnglesSet			= false;
@@ -9015,7 +9017,8 @@ void idPlayer::Move( void ) {
 
 	// set physics variables
 	physicsObj.SetMaxStepHeight( pm_stepsize.GetFloat() );
-	physicsObj.SetMaxJumpHeight( pm_jumpheight.GetFloat() );
+	//Ryan edit Morrowind Jump spell
+	physicsObj.SetMaxJumpHeight( pm_jumpheight.GetFloat() * (1 + morrowindJump));
 
 	if ( noclip ) {
 		physicsObj.SetContents( 0 );
@@ -9706,9 +9709,12 @@ void idPlayer::Think( void ) {
 	if (health > 100 + (20 * statVitality * (1 + ringOfHealth))) {
 		health = 100 + (20 * statVitality * (1 + ringOfHealth));
 	}
-	//Ryan keep track of flash
+	//Ryan keep track of spell times
 	if (gameLocal.time > flashEndTime) {
 		flashSpeed = 0;
+	}
+	if (gameLocal.time > morrowindEndTime) {
+		morrowindJump = 0;
 	}
 	
 }

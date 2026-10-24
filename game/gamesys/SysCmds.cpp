@@ -933,6 +933,17 @@ void Cmd_SpellFlash_f(const idCmdArgs& args) {
 	gameLocal.Printf("Cast flash spell that will last for %i seconds\n", (5 * player->statWisdom));
 }
 
+void Cmd_SpellMorrowindJump_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->morrowindEndTime = gameLocal.time + 5000;
+	player->morrowindJump = player->statWisdom * player->statWisdom;
+	gameLocal.Printf("Casted Morrowind Jump with power %i. Jump to use spell\n", (player->statWisdom * player->statWisdom));
+}
+
 /*
 ==================
 Cmd_God_f
@@ -3617,6 +3628,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	//Spell commands
 	cmdSystem->AddCommand("cast_heal", Cmd_SpellHeal_f, CMD_FL_GAME, "Casts the heal spell to heal the player");
 	cmdSystem->AddCommand("cast_flash", Cmd_SpellFlash_f, CMD_FL_GAME, "Casts the flash spell to make the player move faster");
+	cmdSystem->AddCommand("cast_mjump", Cmd_SpellMorrowindJump_f, CMD_FL_GAME, "Casts the Morrowind jump spell to make the player jump suicidally high");
 // RITUAL END
 
 }
