@@ -446,8 +446,8 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-			//Ryan mod super sparks
-			Attack ( false, owner->statSorcery, 10.0f, 0, 1.0f * owner->statSorcery);
+			//Ryan mod super sparks and magic buff mod
+			Attack ( false, owner->statSorcery * (1 + owner->magicBuff), 10.0f, 0, 1.0f * owner->statSorcery);
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	

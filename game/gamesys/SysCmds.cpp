@@ -919,7 +919,7 @@ void Cmd_SpellHeal_f(const idCmdArgs& args) {
 	else {
 		player->health += 20 * player->statWisdom;
 	}
-	gameLocal.Printf("Heal spell healed with power %i\n", (20 * player->statWisdom));
+	gameLocal.Printf("Heal Spell healed with power %i\n", (20 * player->statWisdom));
 }
 
 void Cmd_SpellFlash_f(const idCmdArgs& args) {
@@ -930,7 +930,7 @@ void Cmd_SpellFlash_f(const idCmdArgs& args) {
 	}
 	player->flashEndTime = gameLocal.time + (5000 * player->statWisdom);
 	player->flashSpeed = 10;
-	gameLocal.Printf("Cast flash spell that will last for %i seconds\n", (5 * player->statWisdom));
+	gameLocal.Printf("Cast Flash that will last for %i seconds\n", (5 * player->statWisdom));
 }
 
 void Cmd_SpellMorrowindJump_f(const idCmdArgs& args) {
@@ -942,6 +942,21 @@ void Cmd_SpellMorrowindJump_f(const idCmdArgs& args) {
 	player->morrowindEndTime = gameLocal.time + 5000;
 	player->morrowindJump = player->statWisdom * player->statWisdom;
 	gameLocal.Printf("Casted Morrowind Jump with power %i. Jump to use spell\n", (player->statWisdom * player->statWisdom));
+}
+
+void Cmd_SpellMagicSiphon_f(const idCmdArgs& args) {
+	idPlayer* player;
+	idVec3 origin;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->magicEndTime = gameLocal.time + (5000 * player->statWisdom);
+	player->siphonHold = 0;
+	player->health -= (200 / (3 * player->statWisdom));
+	player->magicBuff = 2 * player->statWisdom;
+	gameLocal.Printf("Casted Magic Siphon; sorcery buff and health nerf will last %i seconds\n", (5 * player->statWisdom));
+
 }
 
 /*
@@ -3629,6 +3644,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("cast_heal", Cmd_SpellHeal_f, CMD_FL_GAME, "Casts the heal spell to heal the player");
 	cmdSystem->AddCommand("cast_flash", Cmd_SpellFlash_f, CMD_FL_GAME, "Casts the flash spell to make the player move faster");
 	cmdSystem->AddCommand("cast_mjump", Cmd_SpellMorrowindJump_f, CMD_FL_GAME, "Casts the Morrowind jump spell to make the player jump suicidally high");
+	cmdSystem->AddCommand("cast_msiphon", Cmd_SpellMagicSiphon_f, CMD_FL_GAME, "Casts the magic siphon spell to make the player sorcery high in exchange for health");
 // RITUAL END
 
 }

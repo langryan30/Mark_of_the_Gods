@@ -396,12 +396,12 @@ stateResult_t WeaponNapalmGun::State_Fire( const stateParms_t& parms ) {
 			if ( wsfl.zoom ) {
 				//Ryan mod fireball
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE )); //was altFireRate
-				Attack ( true, 1, spread, 0, 1.0f * owner->statSorcery);
+				Attack ( true, 1 + owner->magicBuff, spread + 10, 0, 1.0f * owner->statSorcery);
 				PlayAnim ( ANIMCHANNEL_ALL, "idle", parms.blendFrames );
 				//fireHeld = true;
 			} else {
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				Attack ( false, 1, spread, 0, 1.0f * owner->statSorcery);
+				Attack ( false, 1 + owner->magicBuff, spread + 10, 0, 1.0f * owner->statSorcery);
 
 				int animNum = viewModel->GetAnimator()->GetAnim ( "fire" );
 				if ( animNum ) {

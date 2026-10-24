@@ -314,8 +314,8 @@ stateResult_t rvWeaponDarkMatterGun::State_Fire ( const stateParms_t& parms ) {
 			StopRings ( );
 
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-			//Ryan oblivion disintegrator mod
-			Attack ( false, 1*owner->statSorcery, spread, 0, 1.0f * owner->statSorcery);
+			//Ryan oblivion disintegrator mod     also affected by magic siphon spell
+			Attack ( false, 1*owner->statSorcery * (1 + owner->magicBuff), spread + 10, 0, 1.0f * owner->statSorcery);
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	

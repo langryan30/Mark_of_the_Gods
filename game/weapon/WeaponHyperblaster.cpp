@@ -228,9 +228,9 @@ stateResult_t rvWeaponHyperblaster::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			SpinUp ( );
-			//Ryan ice rod mod
+			//Ryan ice rod mod and magic buff
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 10);
-			Attack ( false, 1, spread, 0, 1.0f * owner->statSorcery);
+			Attack ( false, 1 + owner->magicBuff, spread+10, 0, 1.0f * owner->statSorcery);
 			if ( ClipSize() ) {
 				viewModel->SetShaderParm ( HYPERBLASTER_SPARM_BATTERY, (float)AmmoInClip()/ClipSize() );
 			} else {

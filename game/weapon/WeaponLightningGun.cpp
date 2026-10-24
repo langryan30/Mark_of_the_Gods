@@ -359,7 +359,7 @@ void rvWeaponLightningGun::Attack ( idEntity* ent, const idVec3& dir, float powe
 	}
 // RAVEN END
 	//Ryan mod lightning gun
-	ent->Damage( owner, owner, dir, spawnArgs.GetString ( "def_damage" ), power * owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE ) * owner->getStatSorcery(), 0); 
+	ent->Damage( owner, owner, dir, spawnArgs.GetString ( "def_damage" ), power * owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE ) * owner->getStatSorcery() * (1+owner->magicBuff), 0);
 }
 
 /*

@@ -657,6 +657,9 @@ public:
 	int flashEndTime;
 	int morrowindJump;
 	int morrowindEndTime;
+	int siphonHold;
+	int magicBuff;
+	int magicEndTime;
 	int						GetItemCost(const char* itemName);
 // RITUAL END
 	void					PerformImpulse( int impulse );

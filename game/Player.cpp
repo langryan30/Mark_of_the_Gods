@@ -1113,6 +1113,8 @@ idPlayer::idPlayer() {
 	flashEndTime = 0;
 	morrowindJump = 0;
 	morrowindEndTime = 0;
+	siphonHold = 1;
+	magicBuff = 0;
 	
 
 	spawnAnglesSet			= false;
@@ -9699,7 +9701,7 @@ void idPlayer::Think( void ) {
 
 	//Ryan mod vigor + think function stuff
 	if (health < 100 + (20 * statVitality * (1 + ringOfHealth))) {
-		tempVigor += (statVigor * 0.004f); //GOT VIGOR WORKING!!!
+		tempVigor += (statVigor * 0.004f * siphonHold); //GOT VIGOR WORKING!!! and work on siphon hold
 		if (tempVigor >= 1) {
 			health += 1;
 			tempVigor = 0;
@@ -9716,7 +9718,10 @@ void idPlayer::Think( void ) {
 	if (gameLocal.time > morrowindEndTime) {
 		morrowindJump = 0;
 	}
-	
+	if (gameLocal.time > magicEndTime) {
+		magicBuff = 0;
+		siphonHold = 1;
+	}
 }
 
 /*
