@@ -832,7 +832,7 @@ void Cmd_EquipMageSeal_f(const idCmdArgs& args) {
 		player->statWisdom += player->mageSeal;
 		player->equipMax++;
 		player->msEquipped = true;
-		gameLocal.Printf("Equipped the Warrior Medallion\n");
+		gameLocal.Printf("Equipped the Mage Seal\n");
 	}
 	else if (player->msEquipped) {
 		gameLocal.Printf("Mage Seal is already equipped\n");
@@ -876,7 +876,7 @@ void Cmd_EquipMarkOfTheGods_f(const idCmdArgs& args) {
 		player->motgEquipped = true;
 		gameLocal.Printf("Equipped the Mark of the Gods\n");
 	}
-	else if (player->msEquipped) {
+	else if (player->motgEquipped) {
 		gameLocal.Printf("Mark of the Gods is already equipped\n");
 	}
 	else {
@@ -905,7 +905,22 @@ void Cmd_UnequipMarkOfTheGods_f(const idCmdArgs& args) {
 	}
 }
 
+//Ryan other magic deliverable commands
 
+void Cmd_SpellHeal_f(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if (player->health + (20 * player->statWisdom) > 100 + (20 * player->statVitality * (1 + player->ringOfHealth))) {
+		player->health = 100 + (20 * player->statVitality * (1 + player->ringOfHealth));
+	}
+	else {
+		player->health += 20 * player->statWisdom;
+	}
+	gameLocal.Printf("Heal spell healed with power %i\n", (20 * player->statWisdom));
+}
 
 
 /*
@@ -3589,6 +3604,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("unequip_ms", Cmd_UnequipMageSeal_f, CMD_FL_GAME, "Unequips the Mage Seal if its equipped");
 	cmdSystem->AddCommand("equip_motg", Cmd_EquipMarkOfTheGods_f, CMD_FL_GAME, "Equips the Mark of the Gods if enough slots are available");
 	cmdSystem->AddCommand("unequip_motg", Cmd_UnequipMarkOfTheGods_f, CMD_FL_GAME, "Unequips the Mark of the Gods if its equipped");
+	//Spell commands
+	cmdSystem->AddCommand("cast_heal", Cmd_SpellHeal_f, CMD_FL_GAME, "Casts the heal spell to heal the player");
 // RITUAL END
 
 }
