@@ -660,6 +660,8 @@ public:
 	int siphonHold;
 	int magicBuff;
 	int magicEndTime;
+	int strengthBuff;
+	int strengthEndTime;
 	int						GetItemCost(const char* itemName);
 // RITUAL END
 	void					PerformImpulse( int impulse );

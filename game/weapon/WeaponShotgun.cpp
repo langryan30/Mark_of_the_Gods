@@ -49,8 +49,8 @@ rvWeaponShotgun::Spawn
 */
 void rvWeaponShotgun::Spawn( void ) {
 	//hitscans   = spawnArgs.GetFloat( "hitscans" );
-	//Ryan mod Axe with strength
-	hitscans = 2 * owner->statStrength;
+	//Ryan mod Axe with strength and strength buff
+	hitscans = 2 * owner->statStrength * (1 + owner->strengthBuff);
 	
 	SetState( "Raise", 0 );	
 }

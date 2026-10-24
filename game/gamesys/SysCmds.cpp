@@ -951,12 +951,26 @@ void Cmd_SpellMagicSiphon_f(const idCmdArgs& args) {
 	if (!player) {
 		return;
 	}
-	player->magicEndTime = gameLocal.time + (5000 * player->statWisdom);
+	player->magicEndTime = gameLocal.time + (3000 * player->statWisdom);
 	player->siphonHold = 0;
 	player->health -= (200 / (3 * player->statWisdom));
 	player->magicBuff = 2 * player->statWisdom;
-	gameLocal.Printf("Casted Magic Siphon; sorcery buff and health nerf will last %i seconds\n", (5 * player->statWisdom));
+	gameLocal.Printf("Casted Magic Siphon; magic buff and health nerf will last %i seconds\n", (3 * player->statWisdom));
 
+}
+
+void Cmd_SpellStrengthSiphon_f(const idCmdArgs& args) {
+	idPlayer* player;
+	idVec3 origin;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	player->strengthEndTime = gameLocal.time + (3000 * player->statWisdom);
+	player->siphonHold = 0;
+	player->health -= (200 / (3 * player->statWisdom));
+	player->strengthBuff = 3 * player->statWisdom;
+	gameLocal.Printf("Casted Strength Siphon; strength buff and health nerf will last %i seconds\n", (3 * player->statWisdom));
 }
 
 /*
@@ -3644,7 +3658,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("cast_heal", Cmd_SpellHeal_f, CMD_FL_GAME, "Casts the heal spell to heal the player");
 	cmdSystem->AddCommand("cast_flash", Cmd_SpellFlash_f, CMD_FL_GAME, "Casts the flash spell to make the player move faster");
 	cmdSystem->AddCommand("cast_mjump", Cmd_SpellMorrowindJump_f, CMD_FL_GAME, "Casts the Morrowind jump spell to make the player jump suicidally high");
-	cmdSystem->AddCommand("cast_msiphon", Cmd_SpellMagicSiphon_f, CMD_FL_GAME, "Casts the magic siphon spell to make the player sorcery high in exchange for health");
+	cmdSystem->AddCommand("cast_msiphon", Cmd_SpellMagicSiphon_f, CMD_FL_GAME, "Casts the magic siphon spell to buff magic in exchange for health");
+	cmdSystem->AddCommand("cast_ssiphon", Cmd_SpellStrengthSiphon_f, CMD_FL_GAME, "Casts the strength siphon spell to buff strength in exchange for health");
 // RITUAL END
 
 }

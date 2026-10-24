@@ -144,10 +144,10 @@ stateResult_t rvWeaponGrenadeLauncher::State_Fire ( const stateParms_t& parms ) 
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			//Aether Greatsword mod and magic buff
+			//Aether Greatsword mod and magic buff and strength buff
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 2);
 			//Ryan mod
-			Attack(false, 1 + owner->magicBuff, spread, 0, 1.0f * owner->getStatSorcery() * owner->getStatStrength()); //PROJECTILE POWER MODS DAMAGE
+			Attack(false, 1 + owner->magicBuff, spread, 0, 1.0f * owner->getStatSorcery() * owner->getStatStrength() * (1 + owner->strengthBuff)); //PROJECTILE POWER MODS DAMAGE
 			PlayAnim ( ANIMCHANNEL_ALL, GetFireAnim(), 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	

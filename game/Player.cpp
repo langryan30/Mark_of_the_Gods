@@ -9722,6 +9722,10 @@ void idPlayer::Think( void ) {
 		magicBuff = 0;
 		siphonHold = 1;
 	}
+	if (gameLocal.time > strengthEndTime) {
+		strengthBuff = 0;
+		siphonHold = 1;
+	}
 }
 
 /*

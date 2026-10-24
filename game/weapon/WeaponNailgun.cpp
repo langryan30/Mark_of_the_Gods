@@ -665,12 +665,12 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 			} else {
 				PlayCycle ( ANIMCHANNEL_LEGS, "fire_slow", 4 );
 			}
-			//Ryan mod Zweihander
+			//Ryan mod Zweihander and strength buff
 			if ( wsfl.zoom ) {				
-				Attack ( true, 1, spread, 0.0f, 1.0f * owner->statStrength);
+				Attack ( true, (1 + owner->strengthBuff), spread, 0.0f, 1.0f * owner->statStrength);
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 7);
 			} else {
-				Attack ( false, 1, spread, 0.0f, 1.0f * owner->statStrength);
+				Attack ( false, (1 + owner->strengthBuff), spread, 0.0f, 1.0f * owner->statStrength);
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 7);
 			}
 			
