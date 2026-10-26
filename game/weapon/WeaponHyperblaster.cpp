@@ -230,7 +230,7 @@ stateResult_t rvWeaponHyperblaster::State_Fire ( const stateParms_t& parms ) {
 			SpinUp ( );
 			//Ryan ice rod mod and magic buff
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 10);
-			Attack ( false, 1 + owner->magicBuff, spread+10, 0, 1.0f * owner->statSorcery);
+			Attack ( false, 1 + owner->magicBuff, spread+3, 0, 1.0f * owner->statSorcery);
 			if ( ClipSize() ) {
 				viewModel->SetShaderParm ( HYPERBLASTER_SPARM_BATTERY, (float)AmmoInClip()/ClipSize() );
 			} else {
