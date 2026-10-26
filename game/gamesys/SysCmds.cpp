@@ -847,7 +847,7 @@ void Cmd_UnequipMageSeal_f(const idCmdArgs& args) {
 	if (!player) {
 		return;
 	}
-	if (player->wmEquipped) {
+	if (player->msEquipped) {
 		player->statSorcery -= player->mageSeal;
 		player->statWisdom -= player->mageSeal;
 		player->equipMax--;
@@ -981,7 +981,7 @@ void Cmd_RandomUpgrade_f(const idCmdArgs& args) {
 	if (!player) {
 		return;
 	}
-	int upgradeStat = int(gameLocal.time) % 6;
+	int upgradeStat = gameLocal.random.RandomInt(6);
 	switch (upgradeStat) {
 	case(0):
 		player->upgradeStatVitality();
@@ -1009,6 +1009,17 @@ void Cmd_RandomUpgrade_f(const idCmdArgs& args) {
 		break;
 	}
 }
+
+void Cmd_printStats_f(const idCmdArgs& args) {
+	idPlayer* player;
+	idVec3 origin;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	gameLocal.Printf("Vitality: %i\nVigor: %i\nStrength: %i\nSwiftness: %i\nSorcery: %i\nWisdom: %i\n", player->statVitality, player->statVigor, player->statStrength, player->statSwiftness, player->statSorcery, player->statWisdom);
+}
+
 
 /*
 ==================
@@ -3699,6 +3710,9 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("cast_ssiphon", Cmd_SpellStrengthSiphon_f, CMD_FL_GAME, "Casts the strength siphon spell to buff strength in exchange for health");
 	//Upgrade
 	cmdSystem->AddCommand("upgrade", Cmd_RandomUpgrade_f, CMD_FL_GAME, "Randomly upgrades a stat by 3 at the end of a level");
+
+	//printStats
+	cmdSystem->AddCommand("stats", Cmd_printStats_f, CMD_FL_GAME, "Prints stats to the console");
 // RITUAL END
 
 }
