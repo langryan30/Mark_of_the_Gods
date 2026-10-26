@@ -973,6 +973,43 @@ void Cmd_SpellStrengthSiphon_f(const idCmdArgs& args) {
 	gameLocal.Printf("Casted Strength Siphon; strength buff and health nerf will last %i seconds\n", (3 * player->statWisdom));
 }
 
+//Ryan fallback upgrade command
+void Cmd_RandomUpgrade_f(const idCmdArgs& args) {
+	idPlayer* player;
+	idVec3 origin;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	int upgradeStat = int(gameLocal.time) % 6;
+	switch (upgradeStat) {
+	case(0):
+		player->upgradeStatVitality();
+		gameLocal.Printf("Upgraded Vitality!\n");
+		break;
+	case(1):
+		player->upgradeStatVigor();
+		gameLocal.Printf("Upgraded Vigor!\n");
+		break;
+	case(2):
+		player->upgradeStatStrength();
+		gameLocal.Printf("Upgraded Strength!\n");
+		break;
+	case(3):
+		player->upgradeStatSwiftness();
+		gameLocal.Printf("Upgraded Swiftness!\n");
+		break;
+	case(4):
+		player->upgradeStatWisdom();
+		gameLocal.Printf("Upgraded Wisdom!\n");
+		break;
+	case(5):
+		player->upgradeStatSorcery();
+		gameLocal.Printf("Upgraded Sorcery!\n");
+		break;
+	}
+}
+
 /*
 ==================
 Cmd_God_f
@@ -3660,6 +3697,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("cast_mjump", Cmd_SpellMorrowindJump_f, CMD_FL_GAME, "Casts the Morrowind jump spell to make the player jump suicidally high");
 	cmdSystem->AddCommand("cast_msiphon", Cmd_SpellMagicSiphon_f, CMD_FL_GAME, "Casts the magic siphon spell to buff magic in exchange for health");
 	cmdSystem->AddCommand("cast_ssiphon", Cmd_SpellStrengthSiphon_f, CMD_FL_GAME, "Casts the strength siphon spell to buff strength in exchange for health");
+	//Upgrade
+	cmdSystem->AddCommand("upgrade", Cmd_RandomUpgrade_f, CMD_FL_GAME, "Randomly upgrades a stat by 3 at the end of a level");
 // RITUAL END
 
 }

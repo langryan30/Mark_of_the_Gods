@@ -1115,6 +1115,8 @@ idPlayer::idPlayer() {
 	morrowindEndTime = 0;
 	siphonHold = 1;
 	magicBuff = 0;
+	strengthBuff = 0;
+	//strengthEndTime = 0;
 	
 
 	spawnAnglesSet			= false;
@@ -14199,27 +14201,27 @@ int idPlayer::getStatSorcery() {
 
 //upgrade methods for stats
 void idPlayer::upgradeStatVitality() {
-	statVitality += 1;
+	statVitality += 3;
 }
 
 void idPlayer::upgradeStatVigor() {
-	statVigor += 1;
+	statVigor += 3;
 }
 
 void idPlayer::upgradeStatStrength() {
-	statStrength += 1;
+	statStrength += 3;
 }
 
 void idPlayer::upgradeStatSwiftness() {
-	statSwiftness += 1;
+	statSwiftness += 3;
 }
 
 void idPlayer::upgradeStatWisdom() {
-	statWisdom += 1;
+	statWisdom += 3;
 }
 
 void idPlayer::upgradeStatSorcery() {
-	statSorcery += 2;
+	statSorcery += 3;
 }
 
 
