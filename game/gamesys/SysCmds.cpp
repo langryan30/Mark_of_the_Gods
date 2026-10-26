@@ -1008,6 +1008,7 @@ void Cmd_RandomUpgrade_f(const idCmdArgs& args) {
 		gameLocal.Printf("Upgraded Sorcery!\n");
 		break;
 	}
+	gameLocal.Printf("\nCurrent stats:\nVitality: %i\nVigor: %i\nStrength: %i\nSwiftness: %i\nSorcery: %i\nWisdom: %i\n", player->statVitality, player->statVigor, player->statStrength, player->statSwiftness, player->statSorcery, player->statWisdom);
 }
 
 void Cmd_printStats_f(const idCmdArgs& args) {
@@ -1017,7 +1018,7 @@ void Cmd_printStats_f(const idCmdArgs& args) {
 	if (!player) {
 		return;
 	}
-	gameLocal.Printf("Vitality: %i\nVigor: %i\nStrength: %i\nSwiftness: %i\nSorcery: %i\nWisdom: %i\n", player->statVitality, player->statVigor, player->statStrength, player->statSwiftness, player->statSorcery, player->statWisdom);
+	gameLocal.Printf("\nVitality: %i\nVigor: %i\nStrength: %i\nSwiftness: %i\nSorcery: %i\nWisdom: %i\n", player->statVitality, player->statVigor, player->statStrength, player->statSwiftness, player->statSorcery, player->statWisdom);
 }
 
 
