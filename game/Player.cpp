@@ -338,7 +338,7 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 	// health/armor
 	maxHealth		= dict.GetInt( "maxhealth", "100" );
 	//Ryan mod vitality, and ring of health item toggle
-	maxHealth += (20 * owner->idPlayer::statVitality * (1 + owner->idPlayer::ringOfHealth));  //GOT VITALITY TO WORK!!!!
+	maxHealth += (20 * owner->idPlayer::statVitality + (owner->idPlayer::ringOfHealth));  //GOT VITALITY TO WORK!!!!
 	gameLocal.Printf("This should run constantly");
 	//armor			= dict.GetInt( "armor", "50" );
 	//maxarmor		= dict.GetInt( "maxarmor", "100" );  //Ryan - Dont want armor in mod
@@ -9702,7 +9702,7 @@ void idPlayer::Think( void ) {
 	inBuyZonePrev = false;
 
 	//Ryan mod vigor + think function stuff
-	if (health < 100 + (20 * statVitality * (1 + ringOfHealth))) {
+	if (health < 100 + (20 * statVitality + (ringOfHealth))) {
 		tempVigor += (statVigor * 0.004f * siphonHold); //GOT VIGOR WORKING!!! and work on siphon hold
 		if (tempVigor >= 1) {
 			health += 1;
@@ -9710,8 +9710,8 @@ void idPlayer::Think( void ) {
 		}
 	}
 	//Making sure health can never go above threshold (mostly for game testing)
-	if (health > 100 + (20 * statVitality * (1 + ringOfHealth))) {
-		health = 100 + (20 * statVitality * (1 + ringOfHealth));
+	if (health > 100 + (20 * statVitality + (ringOfHealth))) {
+		health = 100 + (20 * statVitality + (ringOfHealth));
 	}
 	//Ryan keep track of spell times
 	if (gameLocal.time > flashEndTime) {

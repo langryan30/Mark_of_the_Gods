@@ -721,7 +721,7 @@ void Cmd_EquipRingOfHealth_f(const idCmdArgs& args) {
 		return;
 	}
 	if (player->equipMax < 2 && !player->rohEquipped) {
-		player->ringOfHealth = 29;
+		player->ringOfHealth = 40;
 		player->equipMax++;
 		player->rohEquipped = true;
 		gameLocal.Printf("Equipped the Ring of Health\n");
