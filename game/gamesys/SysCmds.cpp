@@ -759,6 +759,7 @@ void Cmd_EquipBunnyHood_f(const idCmdArgs& args) {
 	}
 	if (player->equipMax < 2 && !player->bhEquipped) {
 		player->bunnyHood = 2;
+		player->statSwiftness += player->bunnyHood;
 		player->equipMax++;
 		player->bhEquipped = true;
 		gameLocal.Printf("Equipped the Bunny Hood\n");
@@ -777,6 +778,7 @@ void Cmd_UnequipBunnyHood_f(const idCmdArgs& args) {
 		return;
 	}
 	if (player->bhEquipped) {
+		player->statSwiftness -= player->bunnyHood;
 		player->bunnyHood = 0;
 		player->equipMax--;
 		player->bhEquipped = false;
