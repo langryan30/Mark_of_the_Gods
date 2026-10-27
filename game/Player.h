@@ -640,6 +640,7 @@ public:
 	bool msEquipped;
 	int markOfTheGods;
 	bool motgEquipped;
+	//stat functions
 	int getStatVitality();
 	int getStatVigor();
 	int getStatStrength();

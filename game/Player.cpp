@@ -1098,7 +1098,7 @@ idPlayer::idPlayer() {
 	statSorcery = 1;
 	//item stuff. Add to save/restore?
 	equipMax = 0;
-	ringOfHealth = 0;
+	ringOfHealth = 5;
 	rohEquipped = false;
 	bunnyHood = 0;
 	bhEquipped = false;
