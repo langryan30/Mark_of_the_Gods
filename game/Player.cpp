@@ -9828,7 +9828,7 @@ void idPlayer::Killed( idEntity *inflictor, idEntity *attacker, int damage, cons
 		pfl.pain = true;
 		return;
 	}
-
+	
 // squirrel: Mode-agnostic buymenus
 	if ( gameLocal.isMultiplayer ) {
 		if( gameLocal.mpGame.IsBuyingAllowedInTheCurrentGameMode() )

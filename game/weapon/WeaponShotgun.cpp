@@ -171,7 +171,7 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * (2/float(owner->statSwiftness)));
 			hitscans = 2 * owner->statStrength; //modded in
 			Attack( false, hitscans, spread, 0, 1.0f );
-			gameLocal.Printf("Hitscans: %i\n", hitscans);
+			//gameLocal.Printf("Hitscans: %i\n", hitscans);
 			PlayAnim( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE( STAGE_WAIT );
 	
